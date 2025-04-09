@@ -1,145 +1,132 @@
 const express = require('express');
 const router = express.Router();
-const fs = require('fs');
-const path = require('path');
-
-// Path to the user data file
-const filePath = path.join(__dirname, '../data/user.json');
-
-// Read user data from file
-const getUserData = () => {
-  const data = fs.readFileSync(filePath, 'utf8');
-  return JSON.parse(data).users || [];
-};
-
-// Write user data to file
-const updateUserData = (users) => {
-  fs.writeFileSync(filePath, JSON.stringify({ users }, null, 2), 'utf8');
-};
-
-// ✅ Get all users
-router.get('/', (req, res) => {
-  const users = getUserData();
-  res.status(200).json({
-    success: true,
-    message: 'List of all users',
-    data: users,
-  });
+const { Usermodel, Bookmodel } = require('../modals/index');
+const moment = require('moment');
+// ✅ GET all users
+router.get('/', async (req, res) => {
+  try {
+    const users = await Usermodel.find().populate('issuedBook');
+    res.status(200).json({
+      success: true,
+      message: 'List of all users',
+      data: users,
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
 });
 
-// ✅ Get a user by ID
-router.get('/:id', (req, res) => {
-  const users = getUserData();
-  const { id } = req.params;
-  const foundUser = users.find((each) => each.id == id);
-
-  if (!foundUser) {
-    return res.status(404).json({
-      success: false,
-      message: 'User not found, try again',
+// ✅ GET user by ID
+router.get('/:id', async (req, res) => {
+  try {
+    const user = await Usermodel.findById(req.params.id).populate('issuedBook');
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+    res.status(200).json({
+      success: true,
+      message: 'User found',
+      data: user,
     });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
   }
-
-  res.status(200).json({
-    success: true,
-    message: 'User found successfully!',
-    data: foundUser,
-  });
 });
 
-// ➕ Add a new user
-router.post('/', (req, res) => {
-  const users = getUserData();
-  const {
-    id,
-    name,
-    surname,
-    email,
-    issued_book,
-    issued_date,
-    subscriptionType,
-    subscriptionDate,
-  } = req.body;
-
-  // Check if the ID already exists
-  const user = users.find((each) => each.id == id);
-  if (user) {
-    return res.status(409).json({
-      success: false,
-      message: 'The user already exists, provide another ID',
+// ✅ POST - Add a new user
+router.post('/', async (req, res) => {
+  try {
+    const newUser = await Usermodel.create(req.body);
+    res.status(201).json({
+      success: true,
+      message: 'User added successfully!',
+      data: newUser,
     });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
   }
-
-  // Create a new user object
-  const newUser = {
-    id,
-    name,
-    surname,
-    email,
-    issued_book,
-    issued_date,
-    subscriptionType,
-    subscriptionDate,
-  };
-
-  // Add the new user to the list
-  users.push(newUser);
-  updateUserData(users);
-
-  return res.status(201).json({
-    success: true,
-    message: 'User added successfully!',
-    data: newUser,
-  });
 });
 
-// ✏️ Update user by ID
-router.put('/:id', (req, res) => {
-  const users = getUserData();
-  const { id } = req.params;
-  const data = req.body;
-
-  const userIndex = users.findIndex((each) => each.id == id);
-  if (userIndex === -1) {
-    return res.status(404).json({
-      success: false,
-      message: "User doesn't exist",
+// ✅ PUT - Update user by ID
+router.put('/:id', async (req, res) => {
+  try {
+    const updatedUser = await Usermodel.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
     });
+    if (!updatedUser) {
+      return res.status(404).json({
+        success: false,
+        message: 'User not found, cannot update',
+      });
+    }
+    res.status(200).json({
+      success: true,
+      message: 'User updated successfully!',
+      data: updatedUser,
+    });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
   }
-
-  // Update user data
-  users[userIndex] = { ...users[userIndex], ...data };
-  updateUserData(users);
-
-  return res.status(200).json({
-    success: true,
-    message: 'User updated successfully!',
-    data: users[userIndex],
-  });
 });
 
-// ❌ Delete a user by ID
-router.delete('/:id', (req, res) => {
-  const users = getUserData();
-  const { id } = req.params;
-
-  const userIndex = users.findIndex((each) => each.id == id);
-  if (userIndex === -1) {
-    return res.status(404).json({
-      success: false,
-      message: 'User not found, cannot delete',
+// ✅ DELETE - Delete user by ID
+router.delete('/:id', async (req, res) => {
+  try {
+    const deletedUser = await Usermodel.findByIdAndDelete(req.params.id);
+    if (!deletedUser) {
+      return res.status(404).json({
+        success: false,
+        message: 'User not found, cannot delete',
+      });
+    }
+    res.status(200).json({
+      success: true,
+      message: 'User deleted successfully!',
+      data: deletedUser,
     });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
   }
+});
+router.get('/:id/fine', async (req, res) => {
+  try {
+    const user = await Usermodel.findById(req.params.id).populate('issuedBook');
 
-  // Remove the user
-  const deletedUser = users.splice(userIndex, 1);
-  updateUserData(users);
+    if (!user || !user.subscriptionDate || !user.returnDate) {
+      return res.status(400).json({ success: false, message: 'Missing date fields for fine calculation' });
+    }
 
-  return res.status(200).json({
-    success: true,
-    message: 'User deleted successfully!',
-    data: deletedUser[0],
-  });
+    const fineRules = {
+      Basic: { allowedDays: 7, finePerDay: 10 },
+      Standard: { allowedDays: 14, finePerDay: 5 },
+      Premium: { allowedDays: 30, finePerDay: 0 },
+    };
+
+    const { allowedDays, finePerDay } = fineRules[user.subscriptionType] || fineRules.Basic;
+
+    const subDate = moment(user.subscriptionDate, 'D/M/YY');
+    const returnDate = moment(user.returnDate, 'D/M/YY');
+    const expectedReturn = subDate.clone().add(allowedDays, 'days');
+
+    const overdueDays = Math.max(0, returnDate.diff(expectedReturn, 'days'));
+    const fine = overdueDays * finePerDay;
+
+    res.status(200).json({
+      success: true,
+      data: {
+        user: user.name,
+        subscriptionType: user.subscriptionType,
+        subscriptionDate: subDate.format('DD/MM/YYYY'),
+        expectedReturn: expectedReturn.format('DD/MM/YYYY'),
+        actualReturn: returnDate.format('DD/MM/YYYY'),
+        overdueDays,
+        fine,
+      },
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
 });
 
 module.exports = router;

@@ -30,7 +30,7 @@
       "issued_book": "3",
       "issued_date": "23/9/08",
       "return_date": "3/9/78",
-      "subscriptionType": "Premium",
+      "subscriptionType": "BASIC",
       "subscriptionDate": "9/4/90"
     },
     {
@@ -40,6 +40,7 @@
       "email": "tanish123@gmail.com",
       "issued_book": "4",
       "issued_date": "23/9/08",
+      "return_date": "3/11/08",
       "subscriptionType": "Premium",
       "subscriptionDate": "9/4/90"
     },
@@ -50,8 +51,9 @@
       "email": "tanish123@gmail.com",
       "issued_book": "5",
       "issued_date": "23/9/08",
+      "return_date": "9/11/08",
       "subscriptionType": "Premium",
-      "subscriptionDate": "9/4/90"
+      "subscriptionDate": "9/4/08"
     },
     {
       "id": "6",
@@ -60,8 +62,9 @@
       "email": "tanish123@gmail.com",
       "issued_book": "6",
       "issued_date": "23/9/08",
+      "return_date": "9/11/08",
       "subscriptionType": "Premium",
-      "subscriptionDate": "9/4/90"
+      "subscriptionDate": "22/08/08"
     },
     {
       "id": "8",
