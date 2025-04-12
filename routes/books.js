@@ -1,6 +1,20 @@
 const express = require('express');
 const router = express.Router();
 const { Usermodel, Bookmodel } = require('../modals/index');
+const fs = require('fs');
+const path = require('path');
+
+// ✅ Function to update books.json
+async function updateBooksJson() {
+  try {
+    const books = await Bookmodel.find();
+    const jsonPath = path.join(__dirname, '../data/books.json');
+    fs.writeFileSync(jsonPath, JSON.stringify(books, null, 2));
+    console.log('books.json updated successfully');
+  } catch (err) {
+    console.error("Error updating books.json:", err);
+  }
+}
 
 // ✅ GET all books
 router.get('/', async (req, res) => {
@@ -73,6 +87,10 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     const newBook = await Bookmodel.create(req.body);
+
+    // 🔄 Update JSON file
+    updateBooksJson();
+
     res.status(201).json({
       success: true,
       message: 'Book added successfully!',
@@ -98,6 +116,9 @@ router.put('/:id', async (req, res) => {
       });
     }
 
+    // 🔄 Update JSON file
+    updateBooksJson();
+
     res.status(200).json({
       success: true,
       message: 'Book updated successfully!',
@@ -118,6 +139,9 @@ router.delete('/:id', async (req, res) => {
         message: 'Book not found, cannot delete',
       });
     }
+
+    // 🔄 Update JSON file
+    updateBooksJson();
 
     res.status(200).json({
       success: true,

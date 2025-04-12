@@ -1,44 +1,160 @@
-{
-  "books": [
-    {
-      "id": "1",
-      "name": "THee",
-      "author": "Barath",
-      "genre": "hot",
-      "price": "12.99",
-      "publisher": "India"
-    },
-    {
-      "id": "2",
-      "name": "HI",
-      "author": "Bh",
-      "genre": "ho",
-      "price": "12.99",
-      "publisher": "India"
-    },
-    {
-      "id": "3",
-      "name": "koI",
-      "author": "akao",
-      "genre": "ho",
-      "price": "12.99",
-      "publisher": "India"
-    },
-    {},
-    {
-      "id": "4",
-      "author": "akao",
-      "genre": "ho",
-      "price": "12.99",
-      "publisher": "India"
-    },
-    {
-      "id": "5",
-      "name": "koI",
-      "author": "akao",
-      "genre": "ho",
-      "price": "12.99",
-      "publisher": "India"
-    }
-  ]
-}
+[
+  {
+    "_id": "67fa2ae92d211ff3784e80af",
+    "name": "THee",
+    "author": "Barath",
+    "price": "12.99",
+    "genre": "hot",
+    "publisher": "India",
+    "customId": "1",
+    "__v": 0,
+    "createdAt": "2025-04-12T08:57:13.477Z",
+    "updatedAt": "2025-04-12T08:57:13.477Z"
+  },
+  {
+    "_id": "67fa2ae92d211ff3784e80b0",
+    "name": "HI",
+    "author": "Bh",
+    "price": "12.99",
+    "genre": "ho",
+    "publisher": "India",
+    "customId": "2",
+    "__v": 0,
+    "createdAt": "2025-04-12T08:57:13.478Z",
+    "updatedAt": "2025-04-12T08:57:13.478Z"
+  },
+  {
+    "_id": "67fa2ae92d211ff3784e80b1",
+    "name": "koI",
+    "author": "akao",
+    "price": "12.99",
+    "genre": "ho",
+    "publisher": "India",
+    "customId": "3",
+    "__v": 0,
+    "createdAt": "2025-04-12T08:57:13.478Z",
+    "updatedAt": "2025-04-12T08:57:13.478Z"
+  },
+  {
+    "_id": "67fa2ae92d211ff3784e80b2",
+    "name": "koI",
+    "author": "akao",
+    "price": "12.99",
+    "genre": "ho",
+    "publisher": "India",
+    "customId": "5",
+    "__v": 0,
+    "createdAt": "2025-04-12T08:57:13.479Z",
+    "updatedAt": "2025-04-12T08:57:13.479Z"
+  },
+  {
+    "_id": "67fa401c9a58e7dc285f8168",
+    "name": "THee",
+    "author": "Barath",
+    "price": "12.99",
+    "genre": "hot",
+    "publisher": "India",
+    "createdAt": "2025-04-12T10:27:40.692Z",
+    "updatedAt": "2025-04-12T10:27:40.692Z",
+    "__v": 0
+  },
+  {
+    "_id": "67fa40359a58e7dc285f816a",
+    "name": "THee",
+    "author": "Barath",
+    "price": "12.99",
+    "genre": "hot",
+    "publisher": "India",
+    "createdAt": "2025-04-12T10:28:05.753Z",
+    "updatedAt": "2025-04-12T10:28:05.753Z",
+    "__v": 0
+  },
+  {
+    "_id": "67fa40369a58e7dc285f816c",
+    "name": "THee",
+    "author": "Barath",
+    "price": "12.99",
+    "genre": "hot",
+    "publisher": "India",
+    "createdAt": "2025-04-12T10:28:06.467Z",
+    "updatedAt": "2025-04-12T10:28:06.467Z",
+    "__v": 0
+  },
+  {
+    "_id": "67fa40983eb93cc1ea655124",
+    "name": "THee",
+    "author": "Barath",
+    "price": "12.99",
+    "genre": "hot",
+    "publisher": "India",
+    "createdAt": "2025-04-12T10:29:44.702Z",
+    "updatedAt": "2025-04-12T10:29:44.702Z",
+    "__v": 0
+  },
+  {
+    "_id": "67fa4121a9e296a7a48f1477",
+    "name": "THee",
+    "author": "Barath",
+    "price": "12.99",
+    "genre": "hot",
+    "publisher": "India",
+    "createdAt": "2025-04-12T10:32:01.816Z",
+    "updatedAt": "2025-04-12T10:32:01.816Z",
+    "__v": 0
+  },
+  {
+    "_id": "67fa4153a54493547d9d8fa4",
+    "name": "THee",
+    "author": "Barath",
+    "price": "12.99",
+    "genre": "hot",
+    "publisher": "India",
+    "createdAt": "2025-04-12T10:32:51.367Z",
+    "updatedAt": "2025-04-12T10:32:51.367Z",
+    "__v": 0
+  },
+  {
+    "_id": "67fa4154a54493547d9d8fa6",
+    "name": "THee",
+    "author": "Barath",
+    "price": "12.99",
+    "genre": "hot",
+    "publisher": "India",
+    "createdAt": "2025-04-12T10:32:52.946Z",
+    "updatedAt": "2025-04-12T10:32:52.946Z",
+    "__v": 0
+  },
+  {
+    "_id": "67fa41aa18728dd57663a11c",
+    "name": "THee",
+    "author": "Barath",
+    "price": "12.99",
+    "genre": "hot",
+    "publisher": "India",
+    "createdAt": "2025-04-12T10:34:18.045Z",
+    "updatedAt": "2025-04-12T10:34:18.045Z",
+    "__v": 0
+  },
+  {
+    "_id": "67fa4238fbcb70d12be922c7",
+    "name": "THee",
+    "author": "Barath",
+    "price": "12.99",
+    "genre": "hot",
+    "publisher": "India",
+    "createdAt": "2025-04-12T10:36:40.410Z",
+    "updatedAt": "2025-04-12T10:36:40.410Z",
+    "__v": 0
+  },
+  {
+    "_id": "67fa424cbc8266a160764f51",
+    "name": "THee",
+    "author": "Barath",
+    "price": "12.99",
+    "genre": "hot",
+    "publisher": "India",
+    "createdAt": "2025-04-12T10:37:00.929Z",
+    "updatedAt": "2025-04-12T10:37:00.929Z",
+    "__v": 0
+  }
+]
